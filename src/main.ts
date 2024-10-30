@@ -7,7 +7,7 @@ import "dotenv/config";
 
 export const bot = new Client({
   // To use only guild command
-  botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
+//   botGuilds: [(client) => client.guilds.cache.map((guild) => guild.id)],
 
   // Discord intents
   intents: [
@@ -20,7 +20,7 @@ export const bot = new Client({
   ],
 
   // Debug logs are disabled in silent mode
-  silent: true,
+  silent: false,
 
   // Configuration for @SimpleCommand
   simpleCommand: {
@@ -34,7 +34,7 @@ bot.once("ready", async () => {
 
   // Synchronize applications commands with Discord
   await bot.initApplicationCommands()
-  await bot.clearApplicationCommands()
+//   await bot.clearApplicationCommands()
 //   await bot.clearApplicationCommands(...bot.guilds.cache.map((g) => g.id))
 
   console.log("Bot started");
@@ -55,7 +55,7 @@ async function run() {
   // await importx(__dirname + "/{events,commands}/**/*.{ts,js}");
 
   // The following syntax should be used in the ECMAScript environment
-  await importx(`${dirname(import.meta.url)}/{events,commands,tests}/**/*.{ts,js}`);
+  await importx(`${dirname(import.meta.url)}/{events,commands}/**/*.{ts,js}`);
 
   // Let's start the bot
   if (!process.env.BOT_TOKEN) {
