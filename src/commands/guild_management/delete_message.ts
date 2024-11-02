@@ -2,9 +2,11 @@ import { ActionRowBuilder, ApplicationCommandOptionType, ButtonBuilder, ButtonIn
 import { ButtonComponent, Discord, Guild, Slash, SlashChoice, SlashGroup, SlashOption } from "discordx";
 
 @Discord()
+@SlashGroup({description: 'Apagar mensagens do canal', name: 'apagar'})
+@SlashGroup('apagar')
 class DeleteMessage {
     @Slash({description: "Apaga mensagens de um canal"})
-    async apagarmensagens(@SlashOption({
+    async mensagens(@SlashOption({
         description: "Define a quantidade de mensagens a seram apagadas (100 se não for informado)",
         name: 'quantidade',
         type: ApplicationCommandOptionType.Number

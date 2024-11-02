@@ -2,7 +2,7 @@ import { ApplicationCommandOptionType, CommandInteraction } from "discord.js";
 import { Discord, Guild, Slash, SlashChoice, SlashGroup, SlashOption } from "discordx";
 
 @Discord()
-@Guild("958940026991943710", '1288321418089725982')
+@Guild("1288321418089725982")
 class QuestManager {
     @Slash({description: "Gerenciar Missão"})
     missao(
