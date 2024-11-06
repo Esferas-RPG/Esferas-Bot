@@ -7,17 +7,19 @@
   "main": "build/main.js",
   "scripts": {
     "build": "tsc",
-    "dev": "node --loader ts-node/esm/transpile-only src/main.ts",
+    "dev": "node --loader ts-node/esm -r tsconfig-paths/register src/main.ts",
     "start": "node build/main.js",
     "watch": "nodemon --exec npm run dev --watch src --ext ts"
   },
   "dependencies": {
+    "@discordx/di": "^3.3.2",
     "@discordx/importer": "^1.3.1",
     "@discordx/pagination": "^3.5.4",
     "discord.js": "^14.15.3",
     "discordx": "^11.11.1",
     "dotenv": "^16.4.5",
     "reflect-metadata": "^0.2.2",
+    "tsconfig-paths": "^4.2.0",
     "tsyringe": "^4.8.0"
   },
   "devDependencies": {
