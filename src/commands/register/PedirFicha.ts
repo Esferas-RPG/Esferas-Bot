@@ -1,5 +1,5 @@
-import { ChannelType, CommandInteraction, TextChannel, ThreadAutoArchiveDuration } from "discord.js";
-import { Discord, Guild, Slash, SlashGroup } from "discordx";
+import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, CommandInteraction, GuildMember, InteractionReplyOptions, MessageActionRowComponentBuilder, Role, TextChannel, ThreadAutoArchiveDuration } from "discord.js";
+import { ButtonComponent, Discord, Guild, Slash, SlashGroup } from "discordx";
 
 @Discord()
 @Guild("1288321418089725982", "958940026991943710")
@@ -9,8 +9,6 @@ class PedirFicha {
     @SlashGroup("pedir")
     async ficha(interaction: CommandInteraction) {
         try {
-            await interaction.deferReply()
-
             const guild = interaction.guild
             const roles = await guild?.roles.fetch()
             const recrutadores = roles?.find(role => role.name.includes("Recrutamento"))
@@ -25,7 +23,7 @@ class PedirFicha {
             })
 
             if(!recrutadores) {
-                interaction.followUp(`Role não existe`)
+                interaction.reply(`Role não existe`)
                 return
             }
 
@@ -47,20 +45,53 @@ class PedirFicha {
                 tMessage.delete().catch(error => console.log("Erro ao excluir", error))
             }, 1000);
 
+            const btn = new ButtonBuilder()
+                .setLabel("Gerar Log")
+                .setStyle(ButtonStyle.Primary)
+                .setCustomId("generate")
+
+            const rowButton = new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(btn)
+
             await webhook.send({
                 content: `<@&${recrutadores?.id}> ${user}`,
                 threadId: thread.id,
                 allowedMentions: {
                     roles: [`${recrutadores?.id}`]
-                }
+                },
+                components: [rowButton]
             })
 
             await webhook.delete()
 
-            const registrationMessage = await interaction.followUp(`<@&${recrutadores?.id}>! <#${thread.id}> criado para o usuário ${user} `)
+            const registrationMessage = await interaction.reply({
+                content: `<#${thread.id}> criado! aguarde um <@&${recrutadores?.id}> atender sua solicitação!`,
+                ephemeral: true
+            })
 
         } catch (error) {
             console.error("Erro ao criar", error)
         }
+    }
+
+    @ButtonComponent()
+    async generate(interaction: ButtonInteraction) {
+        if (!interaction.isButton()) return
+
+        const member = interaction.member as GuildMember
+        const recruiter = await member.roles.cache.some(role => role.name.includes("Recrutamento"))
+
+        if(!recruiter) {
+            await interaction.reply({
+                content: "Você não tem permissão para usar este commando. Aguarde um recrutador",
+                ephemeral: true
+            })
+            return
+        }
+
+        await interaction.reply({
+            content: "Vovê é um recrutador parabens, pode usar o botao",
+            ephemeral: true
+        } as InteractionReplyOptions)
+
     }
 }
