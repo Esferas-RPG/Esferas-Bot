@@ -3,13 +3,11 @@
       "module": "ESNext",
       "target": "ESNext",
       "strict": true,
-      "noImplicitAny": true,
+      "noImplicitAny": false,
       "outDir": "build",
       "rootDir": "src",
       "baseUrl": "./",
-      "paths": {
-        "@services/*": ["src/services/*"]
-      },
+      "allowSyntheticDefaultImports": true,
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "strictNullChecks": true,
@@ -17,7 +15,7 @@
       "forceConsistentCasingInFileNames": true,
       "moduleResolution": "Node",
       "esModuleInterop": true,
-      "skipLibCheck": true,
+      "skipLibCheck": true
     },
     "include": [
         "src"

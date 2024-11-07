@@ -20,7 +20,8 @@
     "dotenv": "^16.4.5",
     "reflect-metadata": "^0.2.2",
     "tsconfig-paths": "^4.2.0",
-    "tsyringe": "^4.8.0"
+    "tsyringe": "^4.8.0",
+    "undici": "^6.20.1"
   },
   "devDependencies": {
     "@types/node": "^20.14.4",

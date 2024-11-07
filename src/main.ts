@@ -2,9 +2,11 @@ import "reflect-metadata";
 import { dirname, importx } from "@discordx/importer";
 import type { Interaction, Message } from "discord.js";
 import { IntentsBitField } from "discord.js";
-import { Client, DIService } from "discordx";
+import { Client, DIService, tsyringeDependencyRegistryEngine } from "discordx";
 import "dotenv/config";
+import { container } from "tsyringe";
 
+DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container)
 
 export const bot = new Client({
 
@@ -46,7 +48,8 @@ bot.on("messageCreate", async (message: Message) => {
 
 async function run() {
 
-  await importx(`${dirname(import.meta.url)}/{events,commands,services}/**/*.{ts,js}`);
+  await importx(`${dirname(import.meta.url)}/{events,commands}/**/*.{ts,js}`);
+  await importx(`${dirname(import.meta.url)}/{modules,services}/**/*.{ts,js}`);
 
   if (!process.env.BOT_TOKEN) {
     throw Error("Could not find BOT_TOKEN in your environment");
