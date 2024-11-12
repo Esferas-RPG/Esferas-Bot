@@ -1,6 +1,6 @@
 import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder, GuildMember, InteractionReplyOptions, TextChannel, User } from "discord.js";
 import { Discord, Slash, SlashGroup, Guild, SlashOption } from "discordx";
-import { IValidateCharacterProps } from "../../interfaces/Api.js";
+import { IValidateCharacterProps } from "../../interfaces/index.js";
 import { ApiService } from "../../services/index.js";
 import { injectable } from "tsyringe";
 
