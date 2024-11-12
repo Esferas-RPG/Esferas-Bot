@@ -1,1 +1,1 @@
-export * from './IAPIData.ts'
+export * from './Api.ts'

@@ -1,38 +1,26 @@
 import { ButtonInteraction, CacheType, CommandInteraction } from 'discord.js';
-import { IAPIData } from 'src/interfaces/IAPIData';
+import type { IInteraction } from '../type.js';
 import { injectable } from 'tsyringe';
-import {request, Response} from 'undici'
-
-type IInteraction = CommandInteraction | ButtonInteraction
-
-interface SuccessRequest {
-    url: string
-}
-
-interface ErrorRequest {
-    error: string
-}
+import { request, Response} from 'undici'
+import { INewCharacterProps, IDeleteCharacterProps, IValidateCharacterProps } from '../interfaces/index.js';
 
 @injectable()
 export class ApiService {
     interaction: IInteraction
-    data: IAPIData
-    constructor(interaction: IInteraction, data: IAPIData) {
+    url: string
+    constructor(interaction: IInteraction) {
         this.interaction = interaction
-        this.data = data
+        this.url = 'localhost:5101'
     }
 
-    async response() {
+    async newCharacterResponse(data: INewCharacterProps) {
         try {
-            const response = await request('http://localhost:5101/character/newcharacter', {
+            const response = await request(`http://${this.url}/character/newcharacter`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    playerId: this.data.playerId,
-                    newCharacterName: this.data.newCharacterName
-                })
+                body: JSON.stringify(data)
             })
 
             const responseData = await response.body.json()
@@ -40,6 +28,56 @@ export class ApiService {
             return responseData
         } catch (error) {
             console.error('Erro na requisição', error)
+        }
+    }
+
+    async deleteCharacterResponse(data: IDeleteCharacterProps) {
+        try {
+            const response = await request(`http://${this.url}/character/deletecharacter`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+
+            const responseData = await response.body.json()
+            console.log(responseData)
+            return responseData
+        } catch (error) {
+            console.error('Erro na requisição', error)
+            await this.interaction.deferReply()
+            await this.interaction.followUp("‎ ")
+            await this.interaction.deleteReply()
+            await this.interaction.followUp({
+                content: "Link informado não encontrado!",
+                ephemeral: true
+            })
+        }
+    }
+
+    async validateCharacterResponse(data: IValidateCharacterProps) {
+        try {
+            const response = await request(`http://${this.url}/character/validatecharacter`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+
+            const responseData = await response.body.json()
+            console.log(responseData)
+            return responseData
+        } catch (error) {
+            console.error('Erro na requisição', error)
+            await this.interaction.deferReply()
+            await this.interaction.followUp("‎ ")
+            await this.interaction.deleteReply()
+            await this.interaction.followUp({
+                content: "Link informado não encontrado!",
+                ephemeral: true
+            })
         }
     }
 }
