@@ -6,7 +6,7 @@
   "type": "module",
   "main": "build/main.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && yarn start",
     "dev": "node --loader ts-node/esm -r tsconfig-paths/register src/main.ts",
     "start": "node build/main.js",
     "watch": "nodemon --exec npm run dev --watch src --ext ts"
