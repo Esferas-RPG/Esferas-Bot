@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder, GuildMember, InteractionReplyOptions, TextChannel, User } from "discord.js";
+import { ApplicationCommandOptionType, CommandInteraction, DiscordAPIError, EmbedBuilder, GuildMember, InteractionReplyOptions, TextChannel, User } from "discord.js";
 import { Discord, Slash, SlashGroup, Guild, SlashOption } from "discordx";
 import { IValidateCharacterProps } from "../../interfaces/index.js";
 import { ApiService } from "../../services/index.js";
@@ -90,7 +90,7 @@ class AprovarFicha {
 
                 try {
                     const emojis = [
-                        { guild: "Guilda Hasperia", emoji: "🎭" },
+                        { guild: "Guilda Hesperia", emoji: "🎭" },
                         { guild: "Guilda Belkaris", emoji: "🧭" },
                         { guild: "Guilda Hian", emoji: "⚔️" },
                         { guild: "Guilda Asael", emoji: "🪽" },
@@ -108,9 +108,28 @@ class AprovarFicha {
                     } else {
                         console.log("Canal não encontrado ou não é um canal de texto.");
                     }
-                } catch (channelError) {
-                    console.error("Erro ao enviar mensagem para o canal:", channelError);
-                    await interaction.followUp({ content: "Ocorreu um erro ao tentar enviar a mensagem para o canal específico." });
+                } catch (error: any) {
+                    if (error.code === 50013) {  // Verifica o código de erro `Missing Permissions`
+                        console.error("Erro: Permissões ausentes para alterar o nickname ou enviar mensagem no canal.");
+
+                        await interaction.deferReply();
+                        await interaction.followUp("‎ ");
+                        await interaction.deleteReply();
+                        await interaction.followUp({
+                            content: "Desculpe, mas o bot não tem permissão para alterar o apelido do usuário ou enviar mensagens neste canal.",
+                            ephemeral: true,
+                        });
+                    } else {
+                        // Tratamento genérico para outros erros
+                        console.error("Erro ao enviar mensagem para o canal:", error);
+                        await interaction.deferReply();
+                        await interaction.followUp("‎ ");
+                        await interaction.deleteReply();
+                        await interaction.followUp({
+                            content: "Ocorreu um erro ao tentar enviar a mensagem para o canal específico.",
+                            ephemeral: true,
+                        });
+                    }
                 }
             } else {
                 await interaction.followUp({

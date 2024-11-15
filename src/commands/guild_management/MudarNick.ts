@@ -1,24 +1,53 @@
 import { ApplicationCommandOptionType, CommandInteraction, GuildMember, User } from "discord.js";
-import { Discord, Guild, Slash, SlashGroup, SlashOption } from "discordx";
+import { Discord, Guild, Slash, SlashChoice, SlashGroup, SlashOption } from "discordx";
 import { injectable } from "tsyringe";
 
 @Discord()
 @Guild("1288321418089725982", "958940026991943710")
 @SlashGroup({name: "mudar", description: "Alterar nome do caba"})
+@injectable()
 class AlterarNick {
     @Slash({description: "alterar nome"})
     @SlashGroup("mudar")
-    async nick(@SlashOption({
-        description: "Nome do personagem",
-        name: "user",
-        type: ApplicationCommandOptionType.User,
-        required: true
-    }) @SlashOption({
-        description: "Nome do personagem",
-        name: "name",
-        type: ApplicationCommandOptionType.String,
-        required: true
-    }) user: GuildMember, characterName: string, interaction: CommandInteraction) {
+    async nick(
+        @SlashOption({
+            description: "Selecione o usuario",
+            name: "usuario",
+            type: ApplicationCommandOptionType.User,
+            required: true
+        })
+        user: GuildMember,
+
+        @SlashOption({
+            description: "Selecione a guilda",
+            name: "guilda",
+            type: ApplicationCommandOptionType.String,
+            required: true
+        })
+        @SlashChoice(...[
+            { guild: "Guilda Hesperia", emoji: "🎭" },
+            { guild: "Guilda Belkaris", emoji: "🧭" },
+            { guild: "Guilda Hian", emoji: "⚔️" },
+            { guild: "Guilda Asael", emoji: "🪽" },
+            { guild: "Guilda Argyris", emoji: "🪙" },
+            { guild: "Guilda Quinn", emoji: "🔮" },
+            { guild: "Guilda Marx", emoji: "🛠️" }
+        ].map((item) => ({
+            name: `${item.guild} ${item.emoji}`,
+            value: item.emoji
+        })))
+        guild: string,
+
+
+        @SlashOption({
+            description: "Nome do personagem",
+            name: "novo_nome",
+            type: ApplicationCommandOptionType.String,
+            required: true
+        })
+        characterName: string,
+
+        interaction: CommandInteraction) {
         try {
             const member = interaction.member as GuildMember
 
@@ -30,7 +59,7 @@ class AlterarNick {
                 return;
             }
 
-            await user.setNickname(`${characterName}`)
+            await user.setNickname(`𖥔${guild}𖥔 ‧₊˚ ${characterName}`)
 
             await interaction.reply({
                 content: "Nome do usuario alterado!",
