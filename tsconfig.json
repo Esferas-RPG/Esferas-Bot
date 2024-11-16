@@ -1,24 +1,27 @@
 {
-    "compilerOptions": {
-      "module": "ESNext",
-      "target": "ESNext",
-      "strict": true,
-      "noImplicitAny": false,
-      "outDir": "build",
-      "rootDir": "src",
-      "baseUrl": "./",
-      "allowSyntheticDefaultImports": true,
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-      "strictNullChecks": true,
-      "noUncheckedIndexedAccess": true,
-      "forceConsistentCasingInFileNames": true,
-      "moduleResolution": "Node",
-      "esModuleInterop": true,
-      "skipLibCheck": true
-    },
-    "include": [
-        "src"
-    ],
-    "exclude": ["node_modules", "tests", "examples","build", "backup"]
-  }
+	"compilerOptions": {
+		"module": "ESNext",
+		"target": "ESNext",
+		"strict": true,
+		"noImplicitAny": false,
+		"outDir": "build",
+		"rootDir": "src",
+		"baseUrl": "./",
+		"allowSyntheticDefaultImports": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"strictNullChecks": true,
+		"noUncheckedIndexedAccess": true,
+		"forceConsistentCasingInFileNames": true,
+		"moduleResolution": "Node",
+		"esModuleInterop": true,
+		"skipLibCheck": true
+	},
+	"include": [
+		"src",
+		"backup/AprovarFicha.ts",
+		"backup/DeletarFicha.ts",
+		"backup/PedirFicha.ts"
+	],
+	"exclude": ["node_modules", "tests", "examples", "build", "backup"]
+}
