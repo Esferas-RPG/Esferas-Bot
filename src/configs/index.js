@@ -1,1 +1,1 @@
-export * from './configs.ts'
+export * from './configs.js';

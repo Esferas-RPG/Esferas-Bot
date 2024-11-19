@@ -37,7 +37,8 @@ export class FichaService {
 	}
 
 	async move(interaction: CommandInteraction, data: IMoveCharacterProps) {
-		const response = await this._apiService.moveCharacterResponse(data);
+		const response: any =
+			await this._apiService.moveCharacterResponse(data);
 		EphemeralReply(
 			interaction,
 			response.message ? 'Ficha movida com sucesso!' : response
@@ -62,7 +63,8 @@ export class FichaService {
 				return;
 			}
 
-			const apiRes = await this._apiService.deleteCharacterResponse(data);
+			const apiRes: any =
+				await this._apiService.deleteCharacterResponse(data);
 
 			if (!apiRes.message) {
 				EphemeralReply(interaction, 'Não foi possivel apagar a ficha.');
@@ -219,7 +221,7 @@ export class FichaService {
 
 			await interaction.deferReply();
 
-			const apiRes = await this._apiService.newCharacterResponse(
+			const apiRes: any = await this._apiService.newCharacterResponse(
 				this.newCharacterdata
 			);
 
@@ -297,7 +299,7 @@ export class FichaService {
 					.setColor('#00ff00');
 
 				try {
-					const guildEmoji = guildEmojis.find(
+					const guildEmoji: any = guildEmojis.find(
 						(e) => e.guild === characterGuild
 					);
 

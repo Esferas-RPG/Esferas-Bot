@@ -12,17 +12,17 @@ import {
 	SlashGroup,
 	SlashOption,
 } from 'discordx';
-import { guildEmojis } from '../../configs/index.js';
+import { allowedGuilds, guildEmojis } from '../../configs/index.js';
 import { injectable } from 'tsyringe';
 
 @Discord()
-@Guild('1288321418089725982', '958940026991943710')
+@Guild(allowedGuilds)
 @SlashGroup({ name: 'mudar', description: 'Alterar nome do caba' })
 @injectable()
 class AlterarNick {
 	@Slash({ description: 'alterar nome' })
 	@SlashGroup('mudar')
-	async nick(
+	async nickname(
 		@SlashOption({
 			description: 'Selecione o usuario',
 			name: 'usuario',

@@ -1,3 +1,3 @@
-export * from './ApiService.ts';
-export * from './FichaService.ts';
-export * from './Message/MessageService.ts';
+export * from './ApiService.js';
+export * from './FichaService.js';
+export * from './Message/MessageService.js';

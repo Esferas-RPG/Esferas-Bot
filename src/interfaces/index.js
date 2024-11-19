@@ -1,2 +1,2 @@
-export * from './Api.ts'
-export * from './Guild.ts'
+export * from './Api.js';
+export * from './Guild.js';
