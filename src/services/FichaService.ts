@@ -27,6 +27,7 @@ import {
 } from 'src/interfaces/Api.js';
 import { guildEmojis } from '../configs/index.js';
 import EphemeralReply from './Message/InteractionEphemeralReplyService.js';
+import { guildRegisterRoles } from '../configs/index.js';
 
 @injectable()
 export class FichaService {
@@ -45,8 +46,6 @@ export class FichaService {
 
 	async delete(interaction: CommandInteraction, data: IDeleteCharacterProps) {
 		try {
-			await interaction.deferReply();
-
 			const requiredRoles = ['Recrutamento', 'Administração'];
 
 			const member = interaction.member as GuildMember;
@@ -300,7 +299,7 @@ export class FichaService {
 				try {
 					const guildEmoji = guildEmojis.find(
 						(e) => e.guild === characterGuild
-					)?.emoji;
+					);
 
 					const targetChannel =
 						(await interaction.client.channels.fetch(
@@ -312,8 +311,17 @@ export class FichaService {
 							embeds: [embed],
 						});
 						await player.setNickname(
-							`𖥔${guildEmoji}𖥔 ‧₊˚ ${characterName}`
+							`𖥔${guildEmoji?.emoji}𖥔 ‧₊˚ ${characterName}`
 						);
+
+						await player.roles.remove(
+							guildRegisterRoles.noRegisteredRoleId
+						);
+						await player.roles.add([
+							guildRegisterRoles.registeredRoleId,
+							guildEmoji?.roleId,
+							guildRegisterRoles.inicianteRoleId,
+						]);
 					} else {
 						console.log(
 							'Canal não encontrado ou não é um canal de texto.'
