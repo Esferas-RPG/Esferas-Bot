@@ -6,7 +6,6 @@ WORKDIR /tmp/app
 
 # Move package.json
 COPY package.json .
-COPY .env .
 
 # Install dependencies
 RUN npm install
@@ -14,7 +13,6 @@ RUN npm install
 # Move source files
 COPY src ./src
 COPY tsconfig.json   .
-
 
 # Build project
 RUN npm run build
@@ -27,7 +25,6 @@ WORKDIR /app
 
 # Copy package.json from build-runner
 COPY --from=build-runner /tmp/app/package.json /app/package.json
-COPY --from=build-runner /tmp/app/.env /app/.env
 
 # Install dependencies
 RUN npm install --omit=dev
