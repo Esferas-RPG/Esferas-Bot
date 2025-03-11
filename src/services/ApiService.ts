@@ -16,13 +16,13 @@ import ErrorHandler from './Errors/ErrorHandle.js';
 export class ApiService {
 	url: string;
 	constructor() {
-		this.url = 'localhost:5101';
+		this.url = 'https://esferasapi.azurewebsites.net';
 	}
 
 	async newCharacterResponse(data: INewCharacterProps) {
 		try {
 			const response = await request(
-				`http://${this.url}/character/newcharacter`,
+				`${this.url}/character/newcharacter`,
 				{
 					method: 'POST',
 					headers: {
@@ -43,7 +43,7 @@ export class ApiService {
 	async deleteCharacterResponse(data: IDeleteCharacterProps) {
 		try {
 			const response = await request(
-				`http://${this.url}/character/deletecharacter`,
+				`${this.url}/character/deletecharacter`,
 				{
 					method: 'POST',
 					headers: {
@@ -63,16 +63,13 @@ export class ApiService {
 
 	async moveCharacterResponse(data: IMoveCharacterProps) {
 		try {
-			const response = await request(
-				`http://${this.url}/character/movefile`,
-				{
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(data),
-				}
-			);
+			const response = await request(`${this.url}/character/movefile`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data),
+			});
 
 			const responseData = await response.body.json();
 			console.log(responseData);
@@ -85,7 +82,7 @@ export class ApiService {
 	async validateCharacterResponse(data: IValidateCharacterProps) {
 		try {
 			const response = await request(
-				`http://${this.url}/character/validatecharacter`,
+				`${this.url}/character/validatecharacter`,
 				{
 					method: 'POST',
 					headers: {
