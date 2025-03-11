@@ -14,7 +14,10 @@ import { injectable } from 'tsyringe';
 class Management {
 	constructor(private _messageService: MessageService) {}
 
-	@Slash({ description: 'Apaga mensagens de um canal' })
+	@Slash({
+		description: 'Apaga mensagens de um canal',
+		defaultMemberPermissions: ['ManageMessages'],
+	})
 	async apagar_mensagens(
 		@SlashOption({
 			description:

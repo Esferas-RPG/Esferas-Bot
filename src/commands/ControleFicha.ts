@@ -99,7 +99,6 @@ class ControleFicha {
 			type: ApplicationCommandOptionType.String,
 		})
 		logsLink: string,
-
 		interaction: CommandInteraction
 	) {
 		this._ficha.delete(interaction, { logsLink: logsLink });

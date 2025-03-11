@@ -37,12 +37,21 @@ export class FichaService {
 	}
 
 	async move(interaction: CommandInteraction, data: IMoveCharacterProps) {
-		const response: any =
-			await this._apiService.moveCharacterResponse(data);
-		EphemeralReply(
-			interaction,
-			response.message ? 'Ficha movida com sucesso!' : response
-		);
+		try {
+			const response: any =
+				await this._apiService.moveCharacterResponse(data);
+
+			if (!response.message) {
+				EphemeralReply(interaction, 'Não foi possivel mover a ficha.');
+				return;
+			}
+			EphemeralReply(
+				interaction,
+				response.message ? 'Ficha movida com sucesso!' : response
+			);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 
 	async delete(interaction: CommandInteraction, data: IDeleteCharacterProps) {

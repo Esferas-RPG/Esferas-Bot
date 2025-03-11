@@ -20,7 +20,10 @@ import { injectable } from 'tsyringe';
 @SlashGroup({ name: 'mudar', description: 'Alterar nome do caba' })
 @injectable()
 class AlterarNick {
-	@Slash({ description: 'alterar nome' })
+	@Slash({
+		description: 'alterar nome',
+		defaultMemberPermissions: ['ChangeNickname'],
+	})
 	@SlashGroup('mudar')
 	async nickname(
 		@SlashOption({
@@ -60,8 +63,7 @@ class AlterarNick {
 
 			if (!member.permissions.has('ChangeNickname')) {
 				await interaction.reply({
-					content:
-						'Você não tem permissão para alterar o próprio apelido.',
+					content: 'Você não tem permissão para alterar apelido.',
 					ephemeral: true,
 				});
 				return;
