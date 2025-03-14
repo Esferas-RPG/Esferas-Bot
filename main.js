@@ -1,0 +1,48 @@
+import 'reflect-metadata';
+import { dirname, importx } from '@discordx/importer';
+import { IntentsBitField } from 'discord.js';
+import { Client, DIService, tsyringeDependencyRegistryEngine } from 'discordx';
+import 'dotenv/config';
+import { container } from 'tsyringe';
+import { app } from './services/API/index.js';
+DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container);
+export const bot = new Client({
+    intents: [
+        IntentsBitField.Flags.Guilds,
+        IntentsBitField.Flags.GuildMembers,
+        IntentsBitField.Flags.GuildMessages,
+        IntentsBitField.Flags.GuildMessageReactions,
+        IntentsBitField.Flags.GuildVoiceStates,
+        IntentsBitField.Flags.MessageContent,
+    ],
+    silent: false,
+    simpleCommand: {
+        prefix: '!',
+    },
+});
+bot.once('ready', async () => {
+    await bot.guilds.fetch();
+    await bot.initApplicationCommands();
+    //   await bot.clearApplicationCommands()
+    //   await bot.clearApplicationCommands(...bot.guilds.cache.map((g) => g.id))
+    console.log('Bot started');
+});
+bot.on('interactionCreate', (interaction) => {
+    bot.executeInteraction(interaction);
+});
+bot.on('messageCreate', async (message) => {
+    await bot.executeCommand(message);
+});
+async function run() {
+    await importx(`${dirname(import.meta.url)}/{events,commands}/**/*.{ts,js}`);
+    await importx(`${dirname(import.meta.url)}/{modules,services,interfaces}/**/*.{ts,js}`);
+    if (!process.env.BOT_TOKEN) {
+        throw Error('Could not find BOT_TOKEN in your environment');
+    }
+    await bot.login(process.env.BOT_TOKEN);
+}
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+    console.log('\nApi Started!');
+});
+void run();
