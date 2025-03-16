@@ -5,6 +5,7 @@ import { IntentsBitField } from 'discord.js';
 import { Client, DIService, tsyringeDependencyRegistryEngine } from 'discordx';
 import 'dotenv/config';
 import { container } from 'tsyringe';
+import express from 'express';
 
 DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container);
 
@@ -55,5 +56,14 @@ async function run() {
 
 	await bot.login(process.env.BOT_TOKEN);
 }
+
+const app = express();
+app.get('/', (req, res) => {
+	res.send('Alive!');
+});
+
+app.listen('3000', () => {
+	console.log('App está rodando!');
+});
 
 void run();
