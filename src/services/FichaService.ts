@@ -236,7 +236,7 @@ export class FichaService {
 
 			await interaction.followUp({
 				content: `Ficha criada \nSegue o link: \n${apiRes.url}`,
-			} as InteractionDeferReplyOptions);
+			});
 		} catch (error) {
 			console.log(error);
 		}
