@@ -6,6 +6,8 @@ import { Client, DIService, tsyringeDependencyRegistryEngine } from 'discordx';
 import 'dotenv/config';
 import { container } from 'tsyringe';
 import express from 'express';
+import { EventEmitter } from 'stream';
+import { HeartbeatService } from './services';
 
 DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container);
 
@@ -26,6 +28,8 @@ export const bot = new Client({
 	},
 });
 
+container.registerInstance(Client, bot);
+
 bot.once('ready', async () => {
 	await bot.guilds.fetch();
 
@@ -44,19 +48,6 @@ bot.on('messageCreate', async (message: Message) => {
 	await bot.executeCommand(message);
 });
 
-async function fetchApi() {
-	try {
-		const response = await fetch(
-			'https://esferas-bot-api.onrender.com/heartbeat'
-		);
-		if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
-		const data = await response.json();
-		console.log('Heartbeat:', data);
-	} catch (error) {
-		console.error('Erro ao buscar dados:', error);
-	}
-}
-
 async function run() {
 	await importx(`${dirname(import.meta.url)}/{events,commands}/**/*.{ts,js}`);
 	await importx(
@@ -68,16 +59,23 @@ async function run() {
 	}
 
 	await bot.login(process.env.BOT_TOKEN);
-
-	fetchApi();
-	setInterval(() => {
-		fetchApi;
-	}, 30000);
 }
 
 const app = express();
-app.get('/', (req, res) => {
-	res.send('Alive!');
+
+const heartbeatService = container.resolve(HeartbeatService);
+
+app.get('/heartbeat', async (req, res) => {
+	try {
+		await heartbeatService.sendHeartbeat();
+		res.json({ success: true, message: 'Heartbeat enviado!' });
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({
+			success: false,
+			error: 'Erro ao enviar heartbeat',
+		});
+	}
 });
 
 app.listen('3000', () => {
