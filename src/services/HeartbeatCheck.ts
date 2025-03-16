@@ -1,4 +1,4 @@
-import { CommandInteraction, TextChannel } from 'discord.js';
+import { CommandInteraction, EmbedBuilder, TextChannel } from 'discord.js';
 import { Client } from 'discordx';
 import { inject, injectable } from 'tsyringe';
 
@@ -15,6 +15,20 @@ export class HeartbeatService {
 			return;
 		}
 
-		await channel.send('Teste testado em teste pelo testador!');
+		const embed = new EmbedBuilder()
+			.setColor(0x0099ff) // Cor azul
+			.setTitle('💓 Heartbeat do Bot')
+			.setDescription('O bot está online e funcionando corretamente!')
+			.addFields(
+				{ name: 'Status', value: '✅ Operacional', inline: true },
+				{
+					name: 'Última verificação',
+					value: new Date().toLocaleString(),
+					inline: true,
+				}
+			)
+			.setTimestamp();
+
+		await channel.send({ embeds: [embed] });
 	}
 }
