@@ -44,6 +44,19 @@ bot.on('messageCreate', async (message: Message) => {
 	await bot.executeCommand(message);
 });
 
+async function fetchApi() {
+	try {
+		const response = await fetch(
+			'https://esferas-bot-api.onrender.com/heartbeat'
+		);
+		if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+		const data = await response.json();
+		console.log('Heartbeat:', data);
+	} catch (error) {
+		console.error('Erro ao buscar dados:', error);
+	}
+}
+
 async function run() {
 	await importx(`${dirname(import.meta.url)}/{events,commands}/**/*.{ts,js}`);
 	await importx(
@@ -55,6 +68,11 @@ async function run() {
 	}
 
 	await bot.login(process.env.BOT_TOKEN);
+
+	fetchApi();
+	setInterval(() => {
+		fetchApi;
+	}, 30000);
 }
 
 const app = express();
