@@ -7,7 +7,7 @@ import 'dotenv/config';
 import { container } from 'tsyringe';
 import express from 'express';
 import { EventEmitter } from 'stream';
-import { HeartbeatService } from './services';
+import { HeartbeatService } from './services/index.js';
 
 DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container);
 
