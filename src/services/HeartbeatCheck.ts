@@ -4,8 +4,8 @@ import { inject, injectable } from 'tsyringe';
 
 @injectable()
 export class HeartbeatService {
-	private botStatusChannelId: string = '1288322074598703176';
-	private apiStatusChannelId: string = '1288322074598703176';
+	private botStatusChannelId: string = '1350864182072836167';
+	private apiStatusChannelId: string = '1350864252260450354';
 
 	constructor(@inject(Client) private bot: Client) {}
 
@@ -33,6 +33,8 @@ export class HeartbeatService {
 			.setTimestamp();
 
 		await channel.send({ embeds: [embed] });
+
+		this.checkApiHeartbeat();
 	}
 
 	async checkApiHeartbeat() {
