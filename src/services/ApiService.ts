@@ -11,12 +11,13 @@ import {
 	IMoveCharacterProps,
 } from '../interfaces/index.js';
 import ErrorHandler from './Errors/ErrorHandle.js';
+import 'dotenv/config';
 
 @injectable()
 export class ApiService {
-	url: string;
+	url: string | undefined;
 	constructor() {
-		this.url = 'https://esferasapi.azurewebsites.net';
+		this.url = process.env.API_URL;
 	}
 
 	async newCharacterResponse(data: INewCharacterProps) {

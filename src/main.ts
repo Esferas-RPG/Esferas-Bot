@@ -6,8 +6,6 @@ import { Client, DIService, tsyringeDependencyRegistryEngine } from 'discordx';
 import 'dotenv/config';
 import { container } from 'tsyringe';
 
-import { app } from './services/API/index.js';
-
 DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container);
 
 export const bot = new Client({
@@ -58,9 +56,4 @@ async function run() {
 	await bot.login(process.env.BOT_TOKEN);
 }
 
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => {
-	console.log('\nApi Started!');
-});
 void run();
