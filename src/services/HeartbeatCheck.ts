@@ -30,5 +30,56 @@ export class HeartbeatService {
 			.setTimestamp();
 
 		await channel.send({ embeds: [embed] });
+
+		try {
+			const response = await fetch(
+				'https://esferas-bot-api.onrender.com/heartbeat'
+			);
+			if (!response.ok) {
+				const embed = new EmbedBuilder()
+					.setColor(0x0099ff) // Cor azul
+					.setTitle('💓 Heartbeat da API')
+					.setDescription('A api está offline!')
+					.addFields(
+						{
+							name: 'Status',
+							value: '❌ Parado!',
+							inline: true,
+						},
+						{
+							name: 'Última verificação',
+							value: new Date().toLocaleString(),
+							inline: true,
+						}
+					)
+					.setTimestamp();
+
+				await channel.send({ embeds: [embed] });
+			} else {
+				const embed = new EmbedBuilder()
+					.setColor(0x0099ff) // Cor azul
+					.setTitle('💓 Heartbeat da API')
+					.setDescription(
+						'A api está online e funcionando corretamente!'
+					)
+					.addFields(
+						{
+							name: 'Status',
+							value: '✅ Operacional',
+							inline: true,
+						},
+						{
+							name: 'Última verificação',
+							value: new Date().toLocaleString(),
+							inline: true,
+						}
+					)
+					.setTimestamp();
+
+				await channel.send({ embeds: [embed] });
+			}
+		} catch (error) {
+			console.error('Erro na requisição:', error);
+		}
 	}
 }
