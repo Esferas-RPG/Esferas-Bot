@@ -34,8 +34,8 @@ bot.once('ready', async () => {
 	await bot.guilds.fetch();
 
 	await bot.initApplicationCommands();
-	//   await bot.clearApplicationCommands()
-	//   await bot.clearApplicationCommands(...bot.guilds.cache.map((g) => g.id))
+	// await bot.clearApplicationCommands(); // Limpa comandos globais
+	// await bot.clearApplicationCommands(...bot.guilds.cache.map((g) => g.id)); // Limpa comandos de guilda
 
 	console.log('Bot started');
 });

@@ -96,38 +96,36 @@ export default class IniciarMissao {
 
 		// Criando embed para resposta
 		const mentions = members
-			.map((member) => `• ${member.toString()}`)
+			.map((member) => `✦ ${member.toString()}`)
 			.join('\n');
 
 		const embed = new EmbedBuilder()
+			.setTitle(`𓂃⊹ Missão Iniciada: ${this.nomeDaMissao}`)
 			.addFields(
 				{
-					name: `Mestre:`,
+					name: `☆̱ Mestre:`,
 					value: `<@${this.interaction.user.id}>`,
-					inline: false,
+					inline: true,
 				},
 				{
-					name: `Missão: ${this.nomeDaMissao}`,
-					value: '­',
-					inline: false,
-				},
-				{
-					name: 'Jogadores:',
+					name: ' ݂　ꜛ Participantes:',
 					value: `${mentions}`,
 					inline: false,
+				},
+				{
+					name: '　',
+					value: `♯ **Início**: ${new Date().toLocaleString('pt-BR', {
+						day: '2-digit',
+						month: '2-digit',
+						year: 'numeric',
+						hour: '2-digit',
+						minute: '2-digit',
+						second: '2-digit',
+					})} ⋆ ₊   ˚ ⊹`,
+					inline: true,
 				}
 			)
-			.setColor('#00b0f4')
-			.setFooter({
-				text: `Data de início: ${new Date().toLocaleString('pt-BR', {
-					day: '2-digit',
-					month: '2-digit',
-					year: 'numeric',
-					hour: '2-digit',
-					minute: '2-digit',
-					second: '2-digit',
-				})}`,
-			});
+			.setColor('#00b0f4');
 
 		const usersMentioned = members
 			.map((member) => `${member.toString()}`)

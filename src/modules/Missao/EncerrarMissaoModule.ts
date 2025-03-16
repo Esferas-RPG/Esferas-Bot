@@ -93,7 +93,7 @@ export default class EncerrarMissao {
 
 		// Criando embed para resposta
 		const mentions = members
-			.map((member) => `• ${member.toString()}`)
+			.map((member) => `✦ ${member.toString()}`)
 			.join('\n');
 
 		const usersMentioned = members
@@ -101,30 +101,30 @@ export default class EncerrarMissao {
 			.join(' | ');
 
 		const embed = new EmbedBuilder()
-			.setTitle(`Missão Encerrada: ${this.nomeDaMissao}`)
+			.setTitle(`𓂃⊹ Missão Encerrada: ${this.nomeDaMissao}`)
 			.addFields(
 				{
-					name: `Mestre:`,
+					name: `☆̱ Mestre:`,
 					value: `<@${this.interaction.user.id}>`,
-					inline: false,
+					inline: true,
 				},
 				{
-					name: 'Jogadores:',
+					name: '　ꜛ Participantes:',
 					value: `${mentions}`,
 					inline: false,
 				},
 				{
-					name: 'Recompensas:',
+					name: '➥ Recompensas ˚‧｡:',
 					value: `💰 Ouro: ${this.ouro}\n✨ XP: ${this.xp}`,
 					inline: false,
 				},
 				{
-					name: 'Data de conclusão:',
+					name: '♯ Data de conclusão ⋆ ₊   ˚ ⊹:',
 					value: this.data,
-					inline: false,
+					inline: true,
 				}
 			)
-			.setColor('#ffcc00')
+			.setColor('#00b0f4')
 			.setTimestamp();
 
 		await this.interaction.deferReply();
