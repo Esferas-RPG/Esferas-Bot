@@ -1,4 +1,9 @@
-import { CommandInteraction, EmbedBuilder, GuildMember } from 'discord.js';
+import {
+	CommandInteraction,
+	EmbedBuilder,
+	TextChannel,
+	GuildMember,
+} from 'discord.js';
 import EphemeralReply from '../../services/Message/InteractionEphemeralReplyService.js';
 import Reply from '../../services/Message/InteractionReplyService.js';
 
@@ -9,6 +14,7 @@ export default class EncerrarMissao {
 	private ouro: number;
 	private xp: number;
 	private data: string;
+	private relatorioDeMissaoId: string;
 
 	constructor(
 		interaction: CommandInteraction,
@@ -24,6 +30,7 @@ export default class EncerrarMissao {
 		this.ouro = ouro;
 		this.xp = xp;
 		this.data = data;
+		this.relatorioDeMissaoId = '1308247224521719898';
 
 		this.exec();
 	}
@@ -33,6 +40,14 @@ export default class EncerrarMissao {
 			return this.interaction.reply(
 				'Este comando só pode ser usado em servidores.'
 			);
+		}
+
+		const channel = (await this.interaction.client.channels.fetch(
+			this.relatorioDeMissaoId
+		)) as TextChannel;
+		if (!channel) {
+			console.error('Canal não encontrado');
+			return;
 		}
 
 		const mentionRegex = /<@!?(\d+)>/g;
@@ -115,7 +130,7 @@ export default class EncerrarMissao {
 				},
 				{
 					name: '➥ Recompensas ˚‧｡:',
-					value: `💰 Ouro: ${this.ouro}\n✨ XP: ${this.xp}`,
+					value: `💰 **Ouro**: ${this.ouro} portais de ouro\n✨ **Experiência**: ${this.xp}`,
 					inline: false,
 				},
 				{
@@ -130,6 +145,11 @@ export default class EncerrarMissao {
 		await this.interaction.deferReply();
 		await this.interaction.followUp({
 			content: `|| ${usersMentioned} ||`,
+			embeds: [embed],
+		});
+
+		await channel.send({
+			content: `|| <@${this.interaction.user.id}> ||`,
 			embeds: [embed],
 		});
 	}
