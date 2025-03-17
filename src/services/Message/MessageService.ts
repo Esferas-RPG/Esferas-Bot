@@ -9,8 +9,8 @@ export class MessageService {
 	async deleteMessages(
 		interaction: CommandInteraction,
 		quantidade: number,
-		a_mensagem_inicia_com: string
+		a_mensagem_contem: string
 	) {
-		deleteMessage(interaction, quantidade, a_mensagem_inicia_com);
+		deleteMessage(interaction, quantidade, a_mensagem_contem);
 	}
 }

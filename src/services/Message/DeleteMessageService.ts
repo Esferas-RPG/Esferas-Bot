@@ -3,7 +3,7 @@ import { CommandInteraction, TextChannel } from 'discord.js';
 export default async function deleteMessages(
 	interaction: CommandInteraction,
 	quantidade: number = 100,
-	a_mensagem_inicia_com: string = ''
+	a_mensagem_contem: string = ''
 ) {
 	let deletedMessages = 0;
 	const channel = interaction.channel as TextChannel;
@@ -19,13 +19,13 @@ export default async function deleteMessages(
 
 			if (messages.size === 0) break;
 
-			// Filtra mensagens com menos de 14 dias para evitar erros e que iniciam com o texto especificado
+			// Filtra mensagens com menos de 14 dias para evitar erros e que contêm o texto especificado
 			const deletableMessages = messages.filter(
 				(message) =>
 					new Date().getTime() - message.createdTimestamp <
 						14 * 24 * 60 * 60 * 1000 &&
-					(a_mensagem_inicia_com === '' ||
-						message.content.startsWith(a_mensagem_inicia_com))
+					(a_mensagem_contem === '' ||
+						message.content.includes(a_mensagem_contem))
 			);
 
 			if (deletableMessages.size === 0) break;

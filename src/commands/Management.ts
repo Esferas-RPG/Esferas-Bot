@@ -20,25 +20,24 @@ class Management {
 	})
 	async apagar_mensagens(
 		@SlashOption({
-			description:
-				'Define a quantidade de mensagens a seram apagadas (100 se não for informado)',
+			description: 'Define a quantidade de mensagens a seram apagadas',
 			name: 'quantidade',
 			type: ApplicationCommandOptionType.Number,
 			required: true,
 		})
 		quantidade: number,
 		@SlashOption({
-			description: 'Define o valor que a mensagem inicia',
-			name: 'a_mensagem_inicia_com',
+			description: 'Apaga as mensagens com o valor especificado',
+			name: 'a_mensagem_contem',
 			type: ApplicationCommandOptionType.String,
 		})
-		a_mensagem_inicia_com: string,
+		a_mensagem_contem: string,
 		interaction: CommandInteraction
 	) {
 		this._messageService.deleteMessages(
 			interaction,
 			quantidade,
-			a_mensagem_inicia_com
+			a_mensagem_contem
 		);
 	}
 }
