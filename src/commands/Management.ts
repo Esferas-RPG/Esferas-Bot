@@ -24,10 +24,22 @@ class Management {
 				'Define a quantidade de mensagens a seram apagadas (100 se não for informado)',
 			name: 'quantidade',
 			type: ApplicationCommandOptionType.Number,
+			required: true,
 		})
 		quantidade: number,
+		@SlashOption({
+			description: 'Define o valor que a mensagem inicia',
+			name: 'a_mensagem_inicia_com',
+			type: ApplicationCommandOptionType.String,
+			required: true,
+		})
+		a_mensagem_inicia_com: string,
 		interaction: CommandInteraction
 	) {
-		this._messageService.deleteMessages(interaction, quantidade);
+		this._messageService.deleteMessages(
+			interaction,
+			quantidade,
+			a_mensagem_inicia_com
+		);
 	}
 }

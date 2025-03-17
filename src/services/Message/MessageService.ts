@@ -6,7 +6,11 @@ import { CommandInteraction } from 'discord.js';
 export class MessageService {
 	constructor() {}
 
-	async deleteMessages(interaction: CommandInteraction, quantidade: number) {
-		deleteMessage(interaction, quantidade);
+	async deleteMessages(
+		interaction: CommandInteraction,
+		quantidade: number,
+		a_mensagem_inicia_com: string
+	) {
+		deleteMessage(interaction, quantidade, a_mensagem_inicia_com);
 	}
 }
