@@ -31,7 +31,6 @@ class Management {
 			description: 'Define o valor que a mensagem inicia',
 			name: 'a_mensagem_inicia_com',
 			type: ApplicationCommandOptionType.String,
-			required: true,
 		})
 		a_mensagem_inicia_com: string,
 		interaction: CommandInteraction
