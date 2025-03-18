@@ -13,7 +13,7 @@ export class CutucarAnaoService {
 			`Para`,
 			`VAI TOMAR NO CU`
 		 ];
-		let randomIndex = Math.floor(Math.random()*(5-0)+1);
+		let randomIndex = Math.floor(Math.random()*(5-1)+1);
 
 		interaction.reply('Você cutucou o anão!');
 
