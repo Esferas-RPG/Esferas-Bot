@@ -1,11 +1,13 @@
 import { CommandInteraction, TextChannel } from 'discord.js';
 import { IniciarMissao, EncerrarMissao } from '../modules/MissaoModules.js';
 import { injectable } from 'tsyringe';
+import crypto from 'crypto';
 
 @injectable()
 export class CutucarAnaoService {
 	async cutucarAnao(interaction: CommandInteraction) {
 		const channel = interaction.channel as TextChannel;
+		
 		const message: readonly String[] = [
 			`Não enche!`,
 			`Vai cutucar o cu do outro`,
@@ -13,7 +15,8 @@ export class CutucarAnaoService {
 			`Para`,
 			`VAI TOMAR NO CU`
 		 ];
-		let randomIndex = Math.floor(Math.random()*message.length);
+		const choose = <T>(arr: readonly T[]): T => arr[crypto.randomInt(0, message.length)];
+		//let randomIndex = Math.floor(Math.random()*message.length);
 
 		interaction.reply('Você cutucou o anão!');
 
@@ -28,7 +31,7 @@ export class CutucarAnaoService {
 		}
 
 		await webhook.send({
-			content: message[randomIndex],
+			content: message[choose],
 		});
 
 		await webhook.delete();
