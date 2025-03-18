@@ -18,9 +18,9 @@ export class CutucarAnaoService {
 			const message: readonly string[] = [
 				`Não enche!`,
 				`Vai cutucar o cu do outro`,
-				`Cara, eu vou te bater.`,
-				`Para`,
-				`VAI TOMAR NO CU`
+				`**Cara**, eu vou te bater.`,
+				`**Para**`,
+				`**VAI TOMAR NO CU**`
 			 ];
 			
 											        
