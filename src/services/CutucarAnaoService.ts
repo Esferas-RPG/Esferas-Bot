@@ -1,7 +1,7 @@
 import { CommandInteraction, TextChannel } from 'discord.js';
 import { IniciarMissao, EncerrarMissao } from '../modules/MissaoModules.js';
 import { injectable } from 'tsyringe';
-import crypto from 'crypto';
+import * as crypto from 'crypto';
 
 @injectable()
 export class CutucarAnaoService {
