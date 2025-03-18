@@ -6,13 +6,13 @@ import * as crypto from 'crypto';
 @injectable()
 export class CutucarAnaoService {
 	async cutucarAnao(interaction: CommandInteraction) {
-		const choose = <T>(arr: readonly T[]): T => {
-		    if (arr.length === 0) {
-		        throw new Error("O array está vazio e não é possível escolher um elemento.");
-		    }
-		    return arr[crypto.randomInt(0, arr.length)];
-		};
 		try{
+			const choose = <string>(arr: readonly string[]): string => {
+			    if (arr.length === 0) {
+			        throw new Error("O array está vazio e não é possível escolher um elemento.");
+			    }
+			    return arr[crypto.randomInt(0, arr.length)];
+			};
 			const channel = interaction.channel as TextChannel;
 			
 			const message: readonly string[] = [
@@ -23,9 +23,7 @@ export class CutucarAnaoService {
 				`VAI TOMAR NO CU`
 			 ];
 			
-											           
-			
-	
+											        
 			interaction.reply('Você cutucou o anão!');
 	
 			const webhooks = await channel.fetchWebhooks();
