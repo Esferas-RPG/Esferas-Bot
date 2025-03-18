@@ -20,7 +20,7 @@ export class CutucarAnaoService {
 		}
 
 		await webhook.send({
-			content: `Não enche!`,
+			content: `Vai cutucar o cu do outro`,
 		});
 
 		await webhook.delete();
