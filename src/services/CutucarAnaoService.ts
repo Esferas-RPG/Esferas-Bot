@@ -10,7 +10,7 @@ export class CutucarAnaoService {
                 if (arr.length === 0) {
                     throw new Error("O array está vazio e não é possível escolher um elemento.");
                 }
-                return arr[crypto.randomInt(0, arr.length)];
+                return arr[crypto.randomInt(0, arr.length)]!; // Corrigido
             };
 
             const channel = interaction.channel as TextChannel;
@@ -36,7 +36,7 @@ export class CutucarAnaoService {
             }
 
             await webhook.send({
-                content: choose(message), // Corrigido
+                content: choose(message),
             });
 
             await webhook.delete();
