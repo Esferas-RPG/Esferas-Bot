@@ -1,6 +1,8 @@
 services:
   app:
-    build: .
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
     command: node build/main.js
     environment:
       - BOT_TOKEN=${BOT_TOKEN}
