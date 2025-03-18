@@ -8,14 +8,18 @@ export class CutucarAnaoService {
 	async cutucarAnao(interaction: CommandInteraction) {
 		const channel = interaction.channel as TextChannel;
 		
-		const message: readonly String[] = [
+		const message: readonly string[] = [
 			`Não enche!`,
 			`Vai cutucar o cu do outro`,
 			`Cara, eu vou te bater.`,
 			`Para`,
 			`VAI TOMAR NO CU`
 		 ];
-		const choose = <T>(arr: readonly T[]): T => arr[crypto.randomInt(0, message.length)];
+		const choose = <T>(arr: readonly T[]): T => {
+			 const randomIndex = Math.floor(Math.random() * arr.length);
+			return arr[randomIndex];
+		};
+										           
 		//let randomIndex = Math.floor(Math.random()*message.length);
 
 		interaction.reply('Você cutucou o anão!');
@@ -31,7 +35,7 @@ export class CutucarAnaoService {
 		}
 
 		await webhook.send({
-			content: message[choose],
+			content: choose(messages),
 		});
 
 		await webhook.delete();
