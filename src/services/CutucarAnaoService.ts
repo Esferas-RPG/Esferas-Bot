@@ -17,7 +17,7 @@ export class CutucarAnaoService {
 
             const channel = interaction.channel as TextChannel;
 
-            var message: readonly string[] = [
+            var message: string[] = [
                 `Não enche!`,
                 `Vai cutucar o cu do outro`,
                 `**Cara**, eu vou te bater.`,
