@@ -6,6 +6,7 @@ import * as crypto from 'crypto';
 export class CutucarAnaoService {
     async cutucarAnao(interaction: CommandInteraction) {
         const user = interaction.member?.user;
+        const radNum = (): integer => Math.floor(Math.random()*100);
         try {
             const choose = (arr: readonly string[]): string => {
                 if (arr.length === 0) {
@@ -16,7 +17,7 @@ export class CutucarAnaoService {
 
             const channel = interaction.channel as TextChannel;
 
-            const message: readonly string[] = [
+            var message: readonly string[] = [
                 `Não enche!`,
                 `Vai cutucar o cu do outro`,
                 `**Cara**, eu vou te bater.`,
@@ -35,18 +36,38 @@ export class CutucarAnaoService {
                     avatar: 'https://i.imgur.com/CgBksj0.png',
                 });
             }
-            if(user?.id === "316023621367889920" )
+
+            if(Math.floor(Math.random() * 100) + 1 <= 50)
             {
-                await webhook.send({
-                    content: "rola",
-                });
+                switch(user?.id)
+                {
+                    case "681082000291135490":
+                        message = [
+                            "Lisa, vai cutucar o cu do dimitre",
+                            "**Zanker Cutucou de volta**",
+                            "Tomar no cu Lisabela",
+                            "Se não for para ir beber me não enche o saco"
+                        ]
+                    break;
+                    case "517071325819305995":
+                            message = [
+                                "Porra luan, me deixa em paz carai",
+                                "Chatão tu em"
+                            ]
+                        break;
+                    case "887428623844397126":
+                        message = [
+                            "O anão **PUTO** te cutucou agressivamente de volta "
+                        ]
+                        break;
+                }
+                    
             }
-            else
-            {
-                await webhook.send({
-                    content: choose(message),
-                });
-            }
+
+            await webhook.send({
+                content: choose(message),
+            });
+    
 
             await webhook.delete();
         } catch (error) {
