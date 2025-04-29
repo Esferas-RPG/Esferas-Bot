@@ -65,7 +65,9 @@ export class CutucarAnaoService {
 			}
 
 			const messages: readonly string[] =
-				customMessages[user?.id ?? ''] ?? defaultMessages;
+                Math.random() < 0.5
+                ? customMessages[user?.id ?? ''] ?? defaultMessages
+                : defaultMessages;
 
 			await webhook.send({
 				content: choose(messages),
