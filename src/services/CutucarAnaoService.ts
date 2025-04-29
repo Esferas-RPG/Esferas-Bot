@@ -5,6 +5,7 @@ import * as crypto from 'crypto';
 @injectable()
 export class CutucarAnaoService {
     async cutucarAnao(interaction: CommandInteraction) {
+        const user = interaction.member?.user;
         try {
             const choose = (arr: readonly string[]): string => {
                 if (arr.length === 0) {
@@ -34,10 +35,18 @@ export class CutucarAnaoService {
                     avatar: 'https://i.imgur.com/CgBksj0.png',
                 });
             }
-
-            await webhook.send({
-                content: choose(message),
-            });
+            if(user?.id === "316023621367889920" )
+            {
+                await webhook.send({
+                    content: "rola",
+                });
+            }
+            else
+            {
+                await webhook.send({
+                    content: choose(message),
+                });
+            }
 
             await webhook.delete();
         } catch (error) {
