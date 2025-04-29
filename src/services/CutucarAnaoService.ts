@@ -46,7 +46,7 @@ export class CutucarAnaoService {
                             "Lisa, vai cutucar o cu do dimitre",
                             "**Zanker Cutucou de volta**",
                             "Tomar no cu Lisabela",
-                            "Se não for para ir beber me não enche o saco"
+                            "Se não for para ir beber, não enche o saco"
                         ]
                     break;
                     case "517071325819305995":
