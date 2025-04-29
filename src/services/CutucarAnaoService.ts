@@ -37,7 +37,7 @@ export class CutucarAnaoService {
                 });
             }
 
-            if(Math.floor(Math.random() * 100) + 1 <= 50)
+            if(Math.floor(Math.random() * 100) + 1 <= 100)
             {
                 switch(user?.id)
                 {
@@ -59,6 +59,9 @@ export class CutucarAnaoService {
                         message = [
                             "O anão **PUTO** te cutucou agressivamente de volta "
                         ]
+                        break;
+                    case "316023621367889920":
+                        message = ["Chato para caralho, mas funciono"]
                         break;
                 }
                     
